@@ -4,14 +4,15 @@
 #
 Name     : perl-Time-Duration-Parse
 Version  : 0.15
-Release  : 11
+Release  : 12
 URL      : https://cpan.metacpan.org/authors/id/N/NE/NEILB/Time-Duration-Parse-0.15.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/N/NE/NEILB/Time-Duration-Parse-0.15.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libt/libtime-duration-parse-perl/libtime-duration-parse-perl_0.13-1.debian.tar.xz
-Summary  : Parse string that represents time duration
+Summary  : 'Parse string that represents time duration'
 Group    : Development/Tools
 License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
 Requires: perl-Time-Duration-Parse-license = %{version}-%{release}
+Requires: perl-Time-Duration-Parse-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 BuildRequires : perl(Exporter::Lite)
 BuildRequires : perl(Time::Duration)
@@ -26,7 +27,6 @@ Summary: dev components for the perl-Time-Duration-Parse package.
 Group: Development
 Provides: perl-Time-Duration-Parse-devel = %{version}-%{release}
 Requires: perl-Time-Duration-Parse = %{version}-%{release}
-Requires: perl-Time-Duration-Parse = %{version}-%{release}
 
 %description dev
 dev components for the perl-Time-Duration-Parse package.
@@ -40,18 +40,28 @@ Group: Default
 license components for the perl-Time-Duration-Parse package.
 
 
+%package perl
+Summary: perl components for the perl-Time-Duration-Parse package.
+Group: Default
+Requires: perl-Time-Duration-Parse = %{version}-%{release}
+
+%description perl
+perl components for the perl-Time-Duration-Parse package.
+
+
 %prep
 %setup -q -n Time-Duration-Parse-0.15
-cd ..
-%setup -q -T -D -n Time-Duration-Parse-0.15 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libtime-duration-parse-perl_0.13-1.debian.tar.xz
+cd %{_builddir}/Time-Duration-Parse-0.15
 mkdir -p deblicense/
-cp -r %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Time-Duration-Parse-0.15/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/Time-Duration-Parse-0.15/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -61,7 +71,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -70,7 +80,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Time-Duration-Parse
-cp LICENSE %{buildroot}/usr/share/package-licenses/perl-Time-Duration-Parse/LICENSE
+cp %{_builddir}/Time-Duration-Parse-0.15/LICENSE %{buildroot}/usr/share/package-licenses/perl-Time-Duration-Parse/0c5dcebf0a8f9accc5e008188fed6ea6d3eddafc
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -83,7 +93,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/Time/Duration/Parse.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -91,4 +100,8 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Time-Duration-Parse/LICENSE
+/usr/share/package-licenses/perl-Time-Duration-Parse/0c5dcebf0a8f9accc5e008188fed6ea6d3eddafc
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/Time/Duration/Parse.pm
