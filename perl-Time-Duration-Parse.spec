@@ -4,7 +4,7 @@
 #
 Name     : perl-Time-Duration-Parse
 Version  : 0.16
-Release  : 19
+Release  : 20
 URL      : https://cpan.metacpan.org/authors/id/N/NE/NEILB/Time-Duration-Parse-0.16.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/N/NE/NEILB/Time-Duration-Parse-0.16.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libt/libtime-duration-parse-perl/libtime-duration-parse-perl_0.13-1.debian.tar.xz
