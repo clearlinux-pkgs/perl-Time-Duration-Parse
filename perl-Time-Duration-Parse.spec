@@ -4,7 +4,7 @@
 #
 Name     : perl-Time-Duration-Parse
 Version  : 0.16
-Release  : 22
+Release  : 23
 URL      : https://cpan.metacpan.org/authors/id/N/NE/NEILB/Time-Duration-Parse-0.16.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/N/NE/NEILB/Time-Duration-Parse-0.16.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libt/libtime-duration-parse-perl/libtime-duration-parse-perl_0.13-1.debian.tar.xz
@@ -103,4 +103,4 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.34.0/Time/Duration/Parse.pm
+/usr/lib/perl5/*
